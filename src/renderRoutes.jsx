@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter,Routes,Route, } from 'react-router-dom';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 const renderRoutes = (
   routes,
 ) =>
   routes ? (
-    <BrowserRouter>
+      <BrowserRouter>
       <Routes>
       {routes.map((route, i) => (
         <Route
@@ -14,8 +14,8 @@ const renderRoutes = (
           element={route.component}
         />
       ))}
-      </Routes>
-    </BrowserRouter>
+       </Routes> 
+       </BrowserRouter>
   ) : null;
 
 export default renderRoutes;
