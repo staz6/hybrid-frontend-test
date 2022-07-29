@@ -14,7 +14,7 @@ const Header = styled(CardHeader)(({ theme }) => ({}));
 
 const CustomCard = styled(Card)(({ theme }) => ({
   width: "70%",
-  marginTop: "8vh",
+  marginTop: "4vh",
 }));
 
 const SubHeader = styled("div")(({ theme }) => ({
@@ -62,7 +62,7 @@ function PostCard({ data }) {
       <Content>
         <Divider />
         {data.children.map((val, index) => {
-          return <Comments val={val} index={index} />;
+          return <Comments val={val} key={index} />;
         })}
       </Content>
     </CustomCard>
