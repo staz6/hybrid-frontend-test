@@ -8,7 +8,6 @@ const Container = styled('div')(({theme})=>({
 }))
 
 function MainLayout(props) {
-    console.log(props)
     return (
         <Container>
             {props.children}

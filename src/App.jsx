@@ -1,7 +1,7 @@
 import renderRoutes from './renderRoutes';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme,ThemeProvider } from "@mui/material/styles";
+import {SnackbarProvider} from "notistack";
 import routes from './routes';
-import Home from './pages/Home';
 import MainLayout from './layout/MainLayout';
 
 const theme = createTheme({
@@ -18,13 +18,27 @@ const theme = createTheme({
   },
   
 });
+
 const App = () => {
-  console.log(routes)
   return (
     <ThemeProvider theme={theme}>
-    <MainLayout>
+      <SnackbarProvider
+                        classes={{
+                            root: {zIndex:1400},
+                        }}
+                        dense={true}
+                        maxSnack={5}
+                        autoHideDuration={1000}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                    >
+<MainLayout>
     {renderRoutes(routes)}
     </MainLayout>
+                    </SnackbarProvider>
+    
     </ThemeProvider>
   );
 };

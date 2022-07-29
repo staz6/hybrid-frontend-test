@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled } from "@mui/material/styles";
 import { JustifyFlexCenter } from '../styles/styles';
 import CustomLoader from '../components/CustomLoader';
+import { useSnackbar } from 'notistack';
 
 const FooterInput = styled(Input)(({ theme }) => ({
     width: "60%",
@@ -69,13 +70,32 @@ function reducer (state, action)  {
 
 function Home() {
     const [state, dispatch] = useReducer(reducer, initialState, undefined)
+    const { enqueueSnackbar } = useSnackbar();
 
-    useEffect(() => {
-        Endpoint.getSearchResult("text").then((res)=>{
-            console.log(res)
+    const setLoading = (state)=>
+        dispatch({type:"setLoading",payload:state})
+
+    const getSearchResult = (e) => {
+        var code = e.keyCode || e.which;
+        if(code === 13){
+            setLoading(true)
+        Endpoint.getSearchResult(e.target.value).then((res)=>{
+            enqueueSnackbar("Search result succesfull", {
+                variant: "success",
+              });
+            dispatch({type:"setSearchResult",payload:res.data.hits})
+            setLoading(false)
+        }).catch((err)=>{
+            enqueueSnackbar("Sorry something went wrong, please try again later.", {
+                variant: "error",
+              });
+              dispatch({type:"setHelperText",payload:"Opps...Something went wrong."})
+            setLoading(false)
         })
-    }, [])
+        }
+    }
 
+    
     return (
         <HomeContainer>
             <FooterInput
@@ -83,12 +103,12 @@ function Home() {
             endAdornment={
             <SearchIcon className={"searchIcon"} />
             }
+            onKeyPress={getSearchResult}
             />
 
             <ContentContainer>
-            <CustomLoader/>
-
             {
+                state.loading ? <CustomLoader/> :
                 state.searchResult.length===0 ? 
                 <HelperText>{state.helperText}</HelperText>: null
             }
