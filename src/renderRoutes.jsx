@@ -1,21 +1,19 @@
-import React from 'react';
-import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const renderRoutes = (
-  routes,
-) =>
+const renderRoutes = (routes) =>
   routes ? (
-      <BrowserRouter>
+    <BrowserRouter>
       <Routes>
-      {routes.map((route, i) => (
-        <Route
-          key={route.key || i}
-          path={route.path}
-          element={route.component}
-        />
-      ))}
-       </Routes> 
-       </BrowserRouter>
+        {routes.map((route, i) => (
+          <Route
+            key={route.key || i}
+            path={route.path}
+            element={route.component}
+          />
+        ))}
+      </Routes>
+    </BrowserRouter>
   ) : null;
 
 export default renderRoutes;

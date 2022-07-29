@@ -1,5 +1,5 @@
-import moment from "moment"
+import moment from "moment";
 
-export const returnDateFromNow=(date)=>{
-    return moment(date).fromNow()
-}
+export const returnDateFromNow = (date) => {
+  return moment(date).fromNow();
+};
