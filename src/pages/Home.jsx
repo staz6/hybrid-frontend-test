@@ -87,9 +87,16 @@ function Home() {
       setLoading(true);
       Endpoint.getSearchResult(e.target.value)
         .then((res) => {
-          enqueueSnackbar("Search result succesfull", {
-            variant: "success",
-          });
+          if(res.data.nbHits===0){
+            enqueueSnackbar("No search results found", {
+                variant: "warning",
+              });
+          }else{
+            enqueueSnackbar("Search results found", {
+                variant: "success",
+              });
+          }
+          
           dispatch({ type: "setSearchResult", payload: res.data.hits });
           setLoading(false);
         })
