@@ -4,6 +4,7 @@ import { Endpoint } from '../api/base'
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from "@mui/material/styles";
 import { JustifyFlexCenter } from '../styles/styles';
+import CustomLoader from '../components/CustomLoader';
 
 const FooterInput = styled(Input)(({ theme }) => ({
     width: "60%",
@@ -85,6 +86,8 @@ function Home() {
             />
 
             <ContentContainer>
+            <CustomLoader/>
+
             {
                 state.searchResult.length===0 ? 
                 <HelperText>{state.helperText}</HelperText>: null
