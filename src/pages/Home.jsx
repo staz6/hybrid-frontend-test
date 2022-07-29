@@ -6,8 +6,9 @@ import { styled } from "@mui/material/styles";
 import { JustifyFlexCenter } from '../styles/styles';
 import CustomLoader from '../components/CustomLoader';
 import { useSnackbar } from 'notistack';
+import SearchTable from '../components/SearchTable';
 
-const FooterInput = styled(Input)(({ theme }) => ({
+const TopInput = styled(Input)(({ theme }) => ({
     width: "60%",
     borderBottom: `1px solid ${theme.palette.primary.main}`,
     height:"7vh",
@@ -30,9 +31,10 @@ const FooterInput = styled(Input)(({ theme }) => ({
   }));
 
 const HomeContainer = styled(JustifyFlexCenter)(({theme})=>({
-    height:"100vh",
+    minHeight:"100vh",
     flexDirection:"column",
-    justifyContent:"inherit"
+    justifyContent:"inherit",
+    paddingBottom:"8vh"
 }))
 
 const ContentContainer = styled('div')(({theme})=>({
@@ -98,7 +100,7 @@ function Home() {
     
     return (
         <HomeContainer>
-            <FooterInput
+            <TopInput
             placeholder={"Your email"}
             endAdornment={
             <SearchIcon className={"searchIcon"} />
@@ -110,8 +112,9 @@ function Home() {
             {
                 state.loading ? <CustomLoader/> :
                 state.searchResult.length===0 ? 
-                <HelperText>{state.helperText}</HelperText>: null
+                <HelperText>{state.helperText}</HelperText>: <SearchTable data={state.searchResult}/>
             }
+            
             </ContentContainer>
 
         </HomeContainer>
