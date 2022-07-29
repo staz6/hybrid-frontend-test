@@ -13,5 +13,6 @@ const defaultAxios = axios.create({
       "search",
       { params: {query:data}}
     ),
+    getPostById:async(id)=>defaultAxios.get(`items/${id}`)
 
   }

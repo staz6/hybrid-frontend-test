@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import { JustifyFlexCenter } from '../styles/styles';
 import CustomLoader from '../components/CustomLoader';
 import { useSnackbar } from 'notistack';
+import { useNavigate } from "react-router-dom";
 import SearchTable from '../components/SearchTable';
 
 const TopInput = styled(Input)(({ theme }) => ({
@@ -53,7 +54,7 @@ const HelperText= styled('h1')(({theme})=>({
     marginBottom:"8vh",
 }))
 
-const initialState = {searchResult: [], loading: false,helperText:"Opps...It seems like you have no search to show now"}
+const initialState = {searchResult: [], loading: false,helperText:"Opps...It seems like you have no search to show now."}
 function reducer (state, action)  {
   switch(action.type) {
       case 'setSearchResult':
@@ -73,6 +74,7 @@ function reducer (state, action)  {
 function Home() {
     const [state, dispatch] = useReducer(reducer, initialState, undefined)
     const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate();
 
     const setLoading = (state)=>
         dispatch({type:"setLoading",payload:state})
@@ -97,6 +99,10 @@ function Home() {
         }
     }
 
+    const handleOnClick = (id)=>{
+        navigate(`/post/${id}`)
+    }
+
     
     return (
         <HomeContainer>
@@ -112,7 +118,7 @@ function Home() {
             {
                 state.loading ? <CustomLoader/> :
                 state.searchResult.length===0 ? 
-                <HelperText>{state.helperText}</HelperText>: <SearchTable data={state.searchResult}/>
+                <HelperText>{state.helperText}</HelperText>: <SearchTable data={state.searchResult} handleOnClick={handleOnClick}/>
             }
             
             </ContentContainer>
